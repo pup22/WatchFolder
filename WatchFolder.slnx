@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="WatchFolder/WatchFolder.vcxproj" Id="530d7d9c-87b9-92ae-c671-4ae70836117a" />
+</Solution>

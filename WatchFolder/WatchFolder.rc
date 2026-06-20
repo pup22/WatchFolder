@@ -1,0 +1,227 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Русский (Россия) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_WATCHFOLDER_DIALOG DIALOGEX 0, 0, 321, 193
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION
+EXSTYLE WS_EX_APPWINDOW
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Close",IDOK,264,172,50,14
+    CTEXT           "Token",IDC_STATIC,7,12,50,8
+    CTEXT           "ID",IDC_STATIC,7,29,50,8
+    EDITTEXT        IDC_EDIT_TOKENBOT,65,7,249,14,ES_PASSWORD | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_USERID,65,24,112,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PATH1,65,41,249,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PATH2,65,59,249,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Источник",IDC_BUTTON_PATH1,7,41,50,14
+    PUSHBUTTON      "Цель",IDC_BUTTON_PATH2,7,59,50,14
+    CONTROL         "autostartup",IDC_CHECK_AUTOSTARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,176,114,10
+    CONTROL         "Только",IDC_RADIO_INCLUDED,"Button",BS_AUTORADIOBUTTON | WS_GROUP,7,103,40,10
+    CONTROL         "Исключить",IDC_RADIO_EXCLUDED,"Button",BS_AUTORADIOBUTTON,7,86,54,10
+    EDITTEXT        IDC_EDIT_EXCLUDED,65,80,249,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_INCLUDED,65,101,249,14,ES_AUTOHSCROLL
+    LTEXT           "Шаблоны регистронезависимы, можно использовать * и ?",IDC_STATIC,65,121,198,8
+    LTEXT           "Шаблоны разделяются точкой с запятой без пробела",IDC_STATIC,65,131,184,8
+    LTEXT           "Пример: *.png;DN*.jpg;?*.raw",IDC_STATIC,65,141,102,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041904b0"
+        BEGIN
+            VALUE "CompanyName", "RoSoft"
+            VALUE "FileDescription", "Утилита для отслеживания изменений в папках"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "WatchFolder.exe"
+            VALUE "LegalCopyright", "Copyright © 2026 RoSoft. Все права защищены."
+            VALUE "OriginalFilename", "WatchFolder.exe"
+            VALUE "ProductName", "WatchFolder"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x419, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_WATCHFOLDER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 314
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 186
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_WATCHFOLDER_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_TRAY_MENU MENU
+BEGIN
+    POPUP "Меню"
+    BEGIN
+        MENUITEM "Развернуть",                  ID_TRAY_RESTORE
+        MENUITEM "Выход",                       ID_TRAY_EXIT
+    END
+END
+
+#endif    // Русский (Россия) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Нейтральный (по умолчанию) (неизвестное значение дополнительного кода языка: 0x3) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ZZZ)
+LANGUAGE LANG_NEUTRAL, 0x3
+#pragma code_page(1251)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\icon.ico"
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)\r\n"
+    "LANGUAGE 25, 1\r\n"
+    "#include ""res\\WatchFolder.rc2""  // СЂРµСЃСѓСЂСЃС‹, РЅРµ СЂРµРґР°РєС‚РёСЂСѓРµРјС‹Рµ РІ Microsoft Visual C++\r\n"
+    "#include ""l.RUS\\afxres.rc""      // РЎС‚Р°РЅРґР°СЂС‚РЅС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""l.RUS\\afxribbon.rc""   // Р›РµРЅС‚Р° MFC Рё СЂРµСЃСѓСЂСЃС‹ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Нейтральный (по умолчанию) (неизвестное значение дополнительного кода языка: 0x3) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+LANGUAGE 25, 1
+#include "res\WatchFolder.rc2"  // СЂРµСЃСѓСЂСЃС‹, РЅРµ СЂРµРґР°РєС‚РёСЂСѓРµРјС‹Рµ РІ Microsoft Visual C++
+#include "l.RUS\afxres.rc"      // РЎС‚Р°РЅРґР°СЂС‚РЅС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹
+#if !defined(_AFXDLL)
+#include "l.RUS\afxribbon.rc"   // Р›РµРЅС‚Р° MFC Рё СЂРµСЃСѓСЂСЃС‹ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
