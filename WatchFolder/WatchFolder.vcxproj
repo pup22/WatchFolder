@@ -199,6 +199,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AutoUpdater.h" />
     <ClInclude Include="ConfigManager.h" />
     <ClInclude Include="FileScanner.h" />
     <ClInclude Include="framework.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="WatchFolderDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AutoUpdater.cpp" />
     <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="FileScanner.cpp" />
     <ClCompile Include="pch.cpp">

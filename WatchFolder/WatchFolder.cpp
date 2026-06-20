@@ -6,6 +6,9 @@
 #include "framework.h"
 #include "WatchFolder.h"
 #include "WatchFolderDlg.h"
+#include "AutoUpdater.h"
+#include <thread>
+#include <string>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -70,6 +73,20 @@ BOOL CWatchFolderApp::InitInstance()
 	// TODO: следует изменить эту строку на что-нибудь подходящее,
 	// например на название организации
 	SetRegistryKey(_T("RoSoft"));
+
+	// Проверка обновлений в отдельном потоке перед созданием главного диалога
+	std::thread([](){
+		// Текущую версию получаем из ресурсов файла (FILEVERSION)
+		const std::string currentVersion = AutoUpdater::GetCurrentFileVersion();
+		try {
+			auto info = AutoUpdater::CheckForUpdates(currentVersion);
+			if (info.is_update_available && !info.download_url.empty()) {
+				AutoUpdater::DownloadAndApplyUpdate(info.download_url);
+			}
+		} catch(...) {
+			// не критично — молча игнорируем ошибки автообновления
+		}
+	}).detach();
 
 	CWatchFolderDlg dlg;
 	m_pMainWnd = &dlg;
