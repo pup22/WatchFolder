@@ -139,6 +139,17 @@ BOOL CWatchFolderDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Крупный значок
 	SetIcon(m_hIcon, FALSE);		// Мелкий значок
 
+	// Иконка в трее при запуске
+	ZeroMemory(&m_nid, sizeof(NOTIFYICONDATA));
+	m_nid.cbSize = sizeof(NOTIFYICONDATA);
+	m_nid.hWnd = m_hWnd;
+	m_nid.uID = 1;
+	m_nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+	m_nid.uCallbackMessage = WM_TRAYICON; // Сообщение, которое придет при клике
+	m_nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+	wcscpy_s(m_nid.szTip, L"WatchFolder: Работаю в фоне");
+	Shell_NotifyIcon(NIM_ADD, &m_nid);
+
 	// Безопасная проверка обновлений в отдельном потоке
 	HWND hWndDlg = m_hWnd; // Запоминаем хэндл окна для передачи в поток
 	std::thread([hWndDlg]() {
@@ -500,16 +511,6 @@ void CWatchFolderDlg::OnEnChangeEditPath2()
 
 // В CWatchFolderDlg.cpp
 void CWatchFolderDlg::HideToTray() {
-	ZeroMemory(&m_nid, sizeof(NOTIFYICONDATA));
-	m_nid.cbSize = sizeof(NOTIFYICONDATA);
-	m_nid.hWnd = m_hWnd;
-	m_nid.uID = 1;
-	m_nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-	m_nid.uCallbackMessage = WM_TRAYICON; // Сообщение, которое придет при клике
-	m_nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-	wcscpy_s(m_nid.szTip, L"WatchFolder: Работаю в фоне");
-
-	Shell_NotifyIcon(NIM_ADD, &m_nid);
 	ShowWindow(SW_HIDE); // Скрываем окно
 }
 
