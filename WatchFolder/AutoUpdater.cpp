@@ -301,20 +301,34 @@ static bool DownloadFileToPath(const std::string& url, const fs::path& outPath) 
 	return fs::exists(outPath) && fs::file_size(outPath) > 0;
 }
 
-void AutoUpdater::DownloadAndApplyUpdate(const std::string& downloadUrl) {
+bool AutoUpdater::DownloadUpdate(const std::string& downloadUrl) {
 	try {
 		// Путь текущего исполняемого файла
-		wchar_t exePathBuf[MAX_PATH + 1] = {0};
+		wchar_t exePathBuf[MAX_PATH + 1] = { 0 };
 		GetModuleFileNameW(NULL, exePathBuf, (DWORD)_countof(exePathBuf));
 		fs::path exePath = exePathBuf;
 		fs::path dir = exePath.parent_path();
 
+		// Путь для нового скачанного файла
 		fs::path newExe = dir / "WatchFolder_new.exe";
-		fs::path batPath = dir / "update.bat";
 
-		if (!DownloadFileToPath(downloadUrl, newExe)) {
-			return; // Ошибка скачивания
-		}
+		// Возвращаем результат скачивания (true/false)
+		return DownloadFileToPath(downloadUrl, newExe);
+	}
+	catch (...) {
+		return false;
+	}
+}
+
+void AutoUpdater::ApplyUpdate() {
+	try {
+		// Путь текущего исполняемого файла
+		wchar_t exePathBuf[MAX_PATH + 1] = { 0 };
+		GetModuleFileNameW(NULL, exePathBuf, (DWORD)_countof(exePathBuf));
+		fs::path exePath = exePathBuf;
+		fs::path dir = exePath.parent_path();
+
+		fs::path batPath = dir / "update.bat";
 
 		// Создаём update.bat
 		std::ostringstream bat;
@@ -342,12 +356,13 @@ void AutoUpdater::DownloadAndApplyUpdate(const std::string& downloadUrl) {
 		si.wShowWindow = SW_HIDE;
 		ZeroMemory(&pi, sizeof(pi));
 
-		// Create a mutable buffer for CreateProcess
+		// Создаем изменяемый буфер для CreateProcess
 		std::wstring app = L"cmd.exe";
 		std::wstring cmdFull = app + L" " + cmdLine;
 		std::vector<wchar_t> cmdBuf(cmdFull.begin(), cmdFull.end());
 		cmdBuf.push_back(0);
 
+		// Запускаем скрипт
 		if (CreateProcessW(NULL, cmdBuf.data(), NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, dir.wstring().c_str(), &si, &pi)) {
 			// Закрываем handles, не дожидаясь завершения bat
 			CloseHandle(pi.hThread);
@@ -356,7 +371,8 @@ void AutoUpdater::DownloadAndApplyUpdate(const std::string& downloadUrl) {
 
 		// Просим приложение завершиться
 		PostQuitMessage(0);
-	} catch (...) {
+	}
+	catch (...) {
 		// ничего — не прерываем приложение
 	}
 }

@@ -10,6 +10,7 @@
 #include "ConfigManager.h"
 #include "FileScanner.h"
 #include "TelegramBotClient.h"
+#include "AutoUpdater.h"
 
 #include <thread>
 #include <chrono>
@@ -122,6 +123,8 @@ BEGIN_MESSAGE_MAP(CWatchFolderDlg, CDialogEx)
 	ON_MESSAGE(WM_TRAYICON, &CWatchFolderDlg::OnTrayIcon)
 	ON_COMMAND(ID_TRAY_RESTORE, &CWatchFolderDlg::OnTrayRestore)
 	ON_COMMAND(ID_TRAY_EXIT, &CWatchFolderDlg::OnTrayExit)
+	ON_MESSAGE(WM_UPDATE_AVAILABLE, &CWatchFolderDlg::OnUpdateAvailable)
+	ON_BN_CLICKED(IDC_BUTTON_UPDATE, &CWatchFolderDlg::OnBnClickedButtonUpdate)
 END_MESSAGE_MAP()
 
 
@@ -135,6 +138,24 @@ BOOL CWatchFolderDlg::OnInitDialog()
 	//  если главное окно приложения не является диалоговым
 	SetIcon(m_hIcon, TRUE);			// Крупный значок
 	SetIcon(m_hIcon, FALSE);		// Мелкий значок
+
+	// Безопасная проверка обновлений в отдельном потоке
+	HWND hWndDlg = m_hWnd; // Запоминаем хэндл окна для передачи в поток
+	std::thread([hWndDlg]() {
+		const std::string currentVersion = AutoUpdater::GetCurrentFileVersion();
+		try {
+			auto info = AutoUpdater::CheckForUpdates(currentVersion);
+			if (info.is_update_available && !info.download_url.empty()) {
+				// Отправляем сигнал главному окну. Передать выполнение в UI-поток!
+				if (AutoUpdater::DownloadUpdate(info.download_url)) {
+					::PostMessage(hWndDlg, WM_UPDATE_AVAILABLE, TRUE, 0);
+				}
+			}
+		}
+		catch (...) {
+			// молча игнорируем ошибки сети/парсинга
+		}
+		}).detach();
 
 	// Инициализация компонентов
 	config = new ConfigManager();
@@ -529,4 +550,18 @@ void CWatchFolderDlg::OnTrayExit() {
 	// Удаляем иконку перед выходом
 	Shell_NotifyIcon(NIM_DELETE, &m_nid);
 	PostMessage(WM_CLOSE); // Или EndDialog(IDOK);
+}
+
+LRESULT CWatchFolderDlg::OnUpdateAvailable(WPARAM wParam, LPARAM lParam)
+{
+	// Этот код выполняется в главном UI-потоке!
+	CWnd* pBtn = GetDlgItem(IDC_BUTTON_UPDATE);
+	if (pBtn != nullptr) {
+		pBtn->EnableWindow(TRUE);
+	}
+	return 0;
+}
+void CWatchFolderDlg::OnBnClickedButtonUpdate()
+{
+	AutoUpdater::ApplyUpdate();
 }

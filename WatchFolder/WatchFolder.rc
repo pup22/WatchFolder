@@ -33,7 +33,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPT
 EXSTYLE WS_EX_APPWINDOW
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "Close",IDOK,264,172,50,14
+    DEFPUSHBUTTON   "Свернуть",IDOK,264,172,50,14
     CTEXT           "Token",IDC_STATIC,7,12,50,8
     CTEXT           "ID",IDC_STATIC,7,29,50,8
     EDITTEXT        IDC_EDIT_TOKENBOT,65,7,249,14,ES_PASSWORD | ES_AUTOHSCROLL
@@ -50,6 +50,7 @@ BEGIN
     LTEXT           "Шаблоны регистронезависимы, можно использовать * и ?",IDC_STATIC,65,121,198,8
     LTEXT           "Шаблоны разделяются точкой с запятой без пробела",IDC_STATIC,65,131,184,8
     LTEXT           "Пример: *.png;DN*.jpg;?*.raw",IDC_STATIC,65,141,102,8
+    PUSHBUTTON      "Обновить",IDC_BUTTON_UPDATE,264,156,50,14,WS_DISABLED
 END
 
 
@@ -59,7 +60,7 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,0,1
+ FILEVERSION 1,2,0,1
  PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -77,7 +78,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "RoSoft"
             VALUE "FileDescription", "Утилита для отслеживания изменений в папках"
-            VALUE "FileVersion", "1.1.0.1"
+            VALUE "FileVersion", "1.2.0.1"
             VALUE "InternalName", "WatchFolder.exe"
             VALUE "LegalCopyright", "Copyright © 2026 RoSoft. Все права защищены."
             VALUE "OriginalFilename", "WatchFolder.exe"
