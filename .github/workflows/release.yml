@@ -18,7 +18,7 @@ jobs:
 
     - name: Build Project
       # Укажите путь к вашему .sln файлу
-      run: msbuild WatchFolder.sln /p:Configuration=Release /p:Platform=x64
+      run: msbuild WatchFolder.slnx /p:Configuration=Release /p:Platform=x64
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
