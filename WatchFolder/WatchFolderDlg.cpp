@@ -496,6 +496,8 @@ void CWatchFolderDlg::OnEnChangeEditPath2()
 	wasEqual = false; // флаг сравнения папок
 }
 
+
+
 // В CWatchFolderDlg.cpp
 void CWatchFolderDlg::HideToTray() {
 	ZeroMemory(&m_nid, sizeof(NOTIFYICONDATA));
@@ -537,7 +539,6 @@ LRESULT CWatchFolderDlg::OnTrayIcon(WPARAM wParam, LPARAM lParam) {
 }
 
 void CWatchFolderDlg::ShowFromTray() {
-	Shell_NotifyIcon(NIM_DELETE, &m_nid); // Удаляем иконку
 	ShowWindow(SW_SHOW);                  // Показываем окно
 	SetForegroundWindow();                // Выводим на передний план
 }
