@@ -1,0 +1,48 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Запускать workflow при создании тега (например, v1.0.0)
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build Project
+      # Укажите путь к вашему .sln файлу
+      run: msbuild WatchFolder.sln /p:Configuration=Release /p:Platform=x64
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: WatchFolder-exe
+        path: x64/Release/WatchFolder.exe # Укажите путь, куда MSBuild сохранил .exe
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: WatchFolder-exe
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: WatchFolder.exe
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
